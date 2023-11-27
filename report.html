@@ -1,0 +1,2268 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Giorgio Miraglia">
+
+<title>Bank of England data scientist role Assignment</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="report_files/libs/clipboard/clipboard.min.js"></script>
+<script src="report_files/libs/quarto-html/quarto.js"></script>
+<script src="report_files/libs/quarto-html/popper.min.js"></script>
+<script src="report_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="report_files/libs/quarto-html/anchor.min.js"></script>
+<link href="report_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="report_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="report_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="report_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="report_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="report_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="report_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction-and-report-overview" id="toc-introduction-and-report-overview" class="nav-link active" data-scroll-target="#introduction-and-report-overview">Introduction and report overview</a></li>
+  <li><a href="#task-1" id="toc-task-1" class="nav-link" data-scroll-target="#task-1">Task 1</a>
+  <ul>
+  <li><a href="#data-preperation-and-inspection" id="toc-data-preperation-and-inspection" class="nav-link" data-scroll-target="#data-preperation-and-inspection">Data preperation and inspection</a>
+  <ul class="collapse">
+  <li><a href="#config-and-packages" id="toc-config-and-packages" class="nav-link" data-scroll-target="#config-and-packages">Config and packages</a></li>
+  <li><a href="#read-in-merge-and-clean-data" id="toc-read-in-merge-and-clean-data" class="nav-link" data-scroll-target="#read-in-merge-and-clean-data">Read in, merge and clean data</a></li>
+  <li><a href="#check-for-missing-values" id="toc-check-for-missing-values" class="nav-link" data-scroll-target="#check-for-missing-values">Check for missing values</a></li>
+  <li><a href="#summary-stats-and-erroneous-outliers" id="toc-summary-stats-and-erroneous-outliers" class="nav-link" data-scroll-target="#summary-stats-and-erroneous-outliers">Summary stats and erroneous outliers</a></li>
+  </ul></li>
+  <li><a href="#firm-size-outliers" id="toc-firm-size-outliers" class="nav-link" data-scroll-target="#firm-size-outliers">Firm Size outliers</a></li>
+  <li><a href="#changing-business-profile" id="toc-changing-business-profile" class="nav-link" data-scroll-target="#changing-business-profile">Changing business profile</a></li>
+  <li><a href="#outliers-from-the-norm" id="toc-outliers-from-the-norm" class="nav-link" data-scroll-target="#outliers-from-the-norm">Outliers from the ‘norm’</a></li>
+  </ul></li>
+  <li><a href="#task-2" id="toc-task-2" class="nav-link" data-scroll-target="#task-2">Task 2</a>
+  <ul>
+  <li><a href="#annex" id="toc-annex" class="nav-link" data-scroll-target="#annex">Annex</a>
+  <ul class="collapse">
+  <li><a href="#dimensionality-reduction" id="toc-dimensionality-reduction" class="nav-link" data-scroll-target="#dimensionality-reduction">Dimensionality reduction</a></li>
+  <li><a href="#dbscan" id="toc-dbscan" class="nav-link" data-scroll-target="#dbscan">DBSCAN</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#task-3" id="toc-task-3" class="nav-link" data-scroll-target="#task-3">Task 3</a>
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#defining-the-product" id="toc-defining-the-product" class="nav-link" data-scroll-target="#defining-the-product">Defining the Product</a></li>
+  <li><a href="#key-considerations" id="toc-key-considerations" class="nav-link" data-scroll-target="#key-considerations">Key Considerations</a></li>
+  <li><a href="#azure-pipeline" id="toc-azure-pipeline" class="nav-link" data-scroll-target="#azure-pipeline">Azure pipeline</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Bank of England data scientist role Assignment</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Giorgio Miraglia </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction-and-report-overview" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-and-report-overview">Introduction and report overview</h2>
+<p>This report identifies outlier insurance firms based on three main criteria: firm size, whether the business profile of the firm is changing, and being an outlier from the ‘norm’. The criteria are used separately from one another, each forming a section of this report. In each section the report identifies which firms are most likely to be outlier firms and therefore require increased supervisory resources from the PRA. There are what seem to be significant data quality issues, which are addressed after this introduction.</p>
+<p>Whilst in sections one and two, identifying outlier firms by size and changing business profile, I utilise primarily univariate approaches, in section three I identify ‘outliers from the norm’ by fitting isolation forests on the whole feature set. This yields a quick, comprehensive, and explainable method for detecting outliers non parametrically. Finally in the annex, I backup my findings in section three by detecting the same outliers using density-based clustering and dimensionality reduction techniques.</p>
+</section>
+<section id="task-1" class="level2">
+<h2 class="anchored" data-anchor-id="task-1">Task 1</h2>
+<section id="data-preperation-and-inspection" class="level3">
+<h3 class="anchored" data-anchor-id="data-preperation-and-inspection">Data preperation and inspection</h3>
+<section id="config-and-packages" class="level4">
+<h4 class="anchored" data-anchor-id="config-and-packages">Config and packages</h4>
+<div class="cell" data-execution_count="1">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pickle</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>pd.options.mode.chained_assignment <span class="op">=</span> <span class="va">None</span>  <span class="co"># default='warn'</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#isolation forest</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> IsolationForest</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#dbscan</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> DBSCAN</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#shapley values</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> shap</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">"ignore"</span>, category<span class="op">=</span><span class="pp">DeprecationWarning</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the Excel file</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>file_path <span class="op">=</span> <span class="st">'data/DataScientist_009749_Dataset.xlsx'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="read-in-merge-and-clean-data" class="level4">
+<h4 class="anchored" data-anchor-id="read-in-merge-and-clean-data">Read in, merge and clean data</h4>
+<div class="cell" data-execution_count="2">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_sheet(path, sheet, type_name):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Function that reads in sheet, cleans it and pivots the data long,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">    preparing data for merge with other sheets.</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.read_excel(path, sheet_name<span class="op">=</span>sheet)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">#extract years</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    yearlist <span class="op">=</span> <span class="bu">list</span>(df.iloc[<span class="dv">0</span>,<span class="dv">1</span>:].<span class="bu">str</span>.replace(<span class="st">'YE'</span>, <span class="st">''</span>))</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">#remove first row</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.iloc[<span class="dv">1</span>:]</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">#pivot long and keep year information using regex</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    pattern <span class="op">=</span> <span class="vs">r'([^.]*)'</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    cleancols <span class="op">=</span> [re.search(pattern, <span class="bu">input</span>).group(<span class="dv">1</span>) <span class="cf">for</span> <span class="bu">input</span> <span class="kw">in</span> <span class="bu">list</span>(df.columns)][<span class="dv">1</span>:]</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    newcols <span class="op">=</span> [<span class="ss">f'</span><span class="sc">{</span>c<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> c, y <span class="kw">in</span> <span class="bu">zip</span>(cleancols, yearlist)]</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    df.columns <span class="op">=</span> [<span class="st">'Firm'</span>] <span class="op">+</span> newcols</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#melt</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.melt(df, id_vars<span class="op">=</span>[<span class="st">'Firm'</span>], </span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            var_name<span class="op">=</span><span class="st">'metric'</span>, value_name<span class="op">=</span><span class="st">'value'</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    df[[<span class="st">'metric'</span>, <span class="st">'year'</span>]] <span class="op">=</span> df[<span class="st">'metric'</span>].<span class="bu">str</span>.split(<span class="st">'-'</span>, expand<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'type'</span>] <span class="op">=</span> type_name</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df[[<span class="st">'Firm'</span>, <span class="st">'year'</span>, <span class="st">'type'</span>, <span class="st">'metric'</span>, <span class="st">'value'</span>]]</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> process_sheet(path <span class="op">=</span> file_path, sheet <span class="op">=</span> <span class="dv">0</span>, type_name <span class="op">=</span> <span class="st">'general'</span>)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> process_sheet(path <span class="op">=</span> file_path, sheet <span class="op">=</span> <span class="dv">1</span>, type_name <span class="op">=</span> <span class="st">'underwriting'</span>)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co">#clean and concat dataset</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.concat([df1, df2])</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co">#drop firm for which all values are 0</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>sumdf <span class="op">=</span> df.groupby(<span class="st">'Firm'</span>, as_index <span class="op">=</span> <span class="va">False</span>)[<span class="st">'value'</span>].<span class="bu">sum</span>()</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>drop_firms <span class="op">=</span> <span class="bu">list</span>(sumdf[sumdf.value <span class="op">==</span> <span class="dv">0</span>][<span class="st">'Firm'</span>].unique())</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[<span class="op">~</span>df[<span class="st">'Firm'</span>].isin(drop_firms)]</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co">#set columnall types</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'year'</span>] <span class="op">=</span> df[<span class="st">'year'</span>].astype(np.int64)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'value'</span>] <span class="op">=</span> df[<span class="st">'value'</span>].astype(<span class="st">'float64'</span>)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Firm'</span>] <span class="op">=</span> df[<span class="st">'Firm'</span>].astype(<span class="st">'str'</span>)</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'metric'</span>] <span class="op">=</span> df[<span class="st">'metric'</span>].astype(<span class="st">'str'</span>)</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'type'</span>] <span class="op">=</span> df[<span class="st">'type'</span>].astype(<span class="st">'str'</span>)</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="co">#save</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'mergeddf.pickle'</span>, <span class="st">'wb'</span>) <span class="im">as</span> handle:</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    pickle.dump(df, handle, protocol<span class="op">=</span>pickle.HIGHEST_PROTOCOL)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="check-for-missing-values" class="level4">
+<h4 class="anchored" data-anchor-id="check-for-missing-values">Check for missing values</h4>
+<p>As a basic data check, we inspect missing values from the dataframe. Most of these, seen below, pertain to firms which only have data in one sheet. For consistency in analysis, I drop these observations.</p>
+<div class="cell" data-execution_count="3">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivot the DataFrame to long format</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>dfwide <span class="op">=</span> pd.pivot_table(df, values<span class="op">=</span><span class="st">'value'</span>, index<span class="op">=</span>[<span class="st">'Firm'</span>, <span class="st">'year'</span>], columns<span class="op">=</span><span class="st">'metric'</span>).reset_index()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename the columns for clarity</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>dfwide.columns.name <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#drop firms that only appear in one sheet</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>dfwide <span class="op">=</span> dfwide.dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="summary-stats-and-erroneous-outliers" class="level4">
+<h4 class="anchored" data-anchor-id="summary-stats-and-erroneous-outliers">Summary stats and erroneous outliers</h4>
+<p>We inspect the distributions of the variables. Looking in particular at the min and max values, we immediately notice what appear to be unfeasible numbers, which raise questions on the quality of the data being used. For example, negative GWP numbers and enormous ratios. These erroneous outliers will skew the averages and standard deviations - this is important because my method for detecting outliers in the first two sections depends on these.</p>
+<p>Using the variables in the assignment description document, I create general rules to filter out possible instances of misreporting. These include:</p>
+<ul>
+<li><p>‘Ratio’ variables with earned premiums in the denominator cannot take values greater than ten and must take values greater than zero.</p></li>
+<li><p>GWP and NWP must be greater than 0.</p></li>
+</ul>
+<p>As shown below, this results in 12% of observations being removed from the data. This is a high number and warrants further investigation. If one were more strict in identifying these types of observations we would remove close to half the data.</p>
+<div class="cell" data-execution_count="4">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">##could change or delete this, then modify underlying so it affects all downstream code chunks</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> ((dfwide[<span class="st">'Gross claims incurred (£m)'</span>] <span class="op">&lt;</span> <span class="dv">0</span>) <span class="op">|</span> <span class="co">#insurance firms should be incurring at least some claims, and shouldn't be negative</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>              (dfwide[<span class="st">'Net combined ratio'</span>] <span class="op">&lt;</span> <span class="dv">0</span>) <span class="op">|</span> (dfwide[<span class="st">'Net combined ratio'</span>] <span class="op">&gt;</span> <span class="dv">10</span>) <span class="op">|</span> <span class="co">#extremely unlikely a firm would choose to hold more that 5x required capital requirements</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>              (dfwide[<span class="st">'SCR coverage ratio'</span>] <span class="op">&lt;</span> <span class="dv">0</span>) <span class="op">|</span> <span class="co">#ratio should be greater than zero, neither numerator nor denominator should be less than 1</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>              (dfwide[<span class="st">'NWP (£m) '</span>] <span class="op">&lt;</span> <span class="dv">0</span>) <span class="op">|</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>              (dfwide[<span class="st">'GWP (£m)'</span>] <span class="op">&lt;</span> <span class="dv">0</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>missreported <span class="op">=</span> dfwide[mask].shape[<span class="dv">0</span>]</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span><span class="bu">round</span>(<span class="dv">100</span> <span class="op">*</span> missreported <span class="op">/</span> dfwide.shape[<span class="dv">0</span>], <span class="dv">2</span>)<span class="sc">}</span><span class="ss">% of observations identified as misreporting and removed.'</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>dfwide <span class="op">=</span> dfwide[<span class="op">~</span>mask]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>12.01% of observations identified as misreporting and removed.</code></pre>
+</div>
+</div>
+<p>There is scope to remove misreported figures more surgically by using domain knowledge, understanding the reporting requirements on firms, and looking for further patterns in the suspicious observations.</p>
+<div class="cell" data-execution_count="5">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>display(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    Markdown(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        dfwide.describe().to_markdown()</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 1%">
+<col style="width: 2%">
+<col style="width: 4%">
+<col style="width: 13%">
+<col style="width: 2%">
+<col style="width: 4%">
+<col style="width: 7%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 3%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">year</th>
+<th style="text-align: right;">EoF for SCR (£m)</th>
+<th style="text-align: right;">Excess of assets over liabilities (£m) [= equity]</th>
+<th style="text-align: right;">GWP (£m)</th>
+<th style="text-align: right;">Gross BEL (inc</th>
+<th style="text-align: right;">Gross claims incurred (£m)</th>
+<th style="text-align: right;">Gross combined ratio</th>
+<th style="text-align: right;">Gross expense ratio</th>
+<th style="text-align: right;">NWP (£m)</th>
+<th style="text-align: right;">Net BEL (inc</th>
+<th style="text-align: right;">Net combined ratio</th>
+<th style="text-align: right;">Net expense ratio</th>
+<th style="text-align: right;">Pure gross claims ratio</th>
+<th style="text-align: right;">Pure net claims ratio</th>
+<th style="text-align: right;">SCR (£m)</th>
+<th style="text-align: right;">SCR coverage ratio</th>
+<th style="text-align: right;">Total assets (£m)</th>
+<th style="text-align: right;">Total liabilities (£m)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">count</td>
+<td style="text-align: right;">1421</td>
+<td style="text-align: right;">1421</td>
+<td style="text-align: right;">1421</td>
+<td style="text-align: right;">1421</td>
+<td style="text-align: right;">1421</td>
+<td style="text-align: right;">1421</td>
+<td style="text-align: right;">1421</td>
+<td style="text-align: right;">1421</td>
+<td style="text-align: right;">1421</td>
+<td style="text-align: right;">1421</td>
+<td style="text-align: right;">1421</td>
+<td style="text-align: right;">1421</td>
+<td style="text-align: right;">1421</td>
+<td style="text-align: right;">1421</td>
+<td style="text-align: right;">1421</td>
+<td style="text-align: right;">1421</td>
+<td style="text-align: right;">1421</td>
+<td style="text-align: right;">1421</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mean</td>
+<td style="text-align: right;">2018.04</td>
+<td style="text-align: right;">478.928</td>
+<td style="text-align: right;">535.677</td>
+<td style="text-align: right;">973.372</td>
+<td style="text-align: right;">324.435</td>
+<td style="text-align: right;">155.961</td>
+<td style="text-align: right;">2.46874</td>
+<td style="text-align: right;">1.16575</td>
+<td style="text-align: right;">772.746</td>
+<td style="text-align: right;">207.495</td>
+<td style="text-align: right;">0.572883</td>
+<td style="text-align: right;">0.255981</td>
+<td style="text-align: right;">-1.32466</td>
+<td style="text-align: right;">0.325089</td>
+<td style="text-align: right;">352.506</td>
+<td style="text-align: right;">1.36577e+06</td>
+<td style="text-align: right;">7219.19</td>
+<td style="text-align: right;">6771.49</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">std</td>
+<td style="text-align: right;">1.41267</td>
+<td style="text-align: right;">2073.51</td>
+<td style="text-align: right;">2175.17</td>
+<td style="text-align: right;">4931.34</td>
+<td style="text-align: right;">1173.43</td>
+<td style="text-align: right;">507.241</td>
+<td style="text-align: right;">88.7673</td>
+<td style="text-align: right;">34.7819</td>
+<td style="text-align: right;">3962.92</td>
+<td style="text-align: right;">737.862</td>
+<td style="text-align: right;">0.818515</td>
+<td style="text-align: right;">0.520964</td>
+<td style="text-align: right;">119.339</td>
+<td style="text-align: right;">0.489755</td>
+<td style="text-align: right;">1606.26</td>
+<td style="text-align: right;">3.61467e+07</td>
+<td style="text-align: right;">34665.1</td>
+<td style="text-align: right;">33011.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">min</td>
+<td style="text-align: right;">2016</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-167.816</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-1618.21</td>
+<td style="text-align: right;">-4.85666</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-182.382</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-2.76764</td>
+<td style="text-align: right;">-4312.89</td>
+<td style="text-align: right;">-1.34176</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-207.356</td>
+<td style="text-align: right;">-1487.11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">25%</td>
+<td style="text-align: right;">2017</td>
+<td style="text-align: right;">2.82956</td>
+<td style="text-align: right;">3.72051</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.632759</td>
+<td style="text-align: right;">0.325879</td>
+<td style="text-align: right;">5.81779</td>
+<td style="text-align: right;">0.692228</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">50%</td>
+<td style="text-align: right;">2018</td>
+<td style="text-align: right;">24.661</td>
+<td style="text-align: right;">29.5752</td>
+<td style="text-align: right;">11.4713</td>
+<td style="text-align: right;">3.79525</td>
+<td style="text-align: right;">3.27896</td>
+<td style="text-align: right;">0.177343</td>
+<td style="text-align: right;">0.0508993</td>
+<td style="text-align: right;">6.12693</td>
+<td style="text-align: right;">1.14307</td>
+<td style="text-align: right;">0.145373</td>
+<td style="text-align: right;">0.045588</td>
+<td style="text-align: right;">0.101618</td>
+<td style="text-align: right;">0.0502669</td>
+<td style="text-align: right;">10.4002</td>
+<td style="text-align: right;">1.61004</td>
+<td style="text-align: right;">79.0723</td>
+<td style="text-align: right;">41.0741</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">75%</td>
+<td style="text-align: right;">2019</td>
+<td style="text-align: right;">162.429</td>
+<td style="text-align: right;">167.732</td>
+<td style="text-align: right;">217.343</td>
+<td style="text-align: right;">156.428</td>
+<td style="text-align: right;">83.3477</td>
+<td style="text-align: right;">1.01861</td>
+<td style="text-align: right;">0.340958</td>
+<td style="text-align: right;">117.137</td>
+<td style="text-align: right;">88.602</td>
+<td style="text-align: right;">1.03142</td>
+<td style="text-align: right;">0.405065</td>
+<td style="text-align: right;">0.641362</td>
+<td style="text-align: right;">0.565957</td>
+<td style="text-align: right;">89.8907</td>
+<td style="text-align: right;">3.03624</td>
+<td style="text-align: right;">863.065</td>
+<td style="text-align: right;">620.554</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">max</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">36644.4</td>
+<td style="text-align: right;">26705</td>
+<td style="text-align: right;">74078.6</td>
+<td style="text-align: right;">19292.1</td>
+<td style="text-align: right;">6844.01</td>
+<td style="text-align: right;">2442.47</td>
+<td style="text-align: right;">1310.18</td>
+<td style="text-align: right;">75526.7</td>
+<td style="text-align: right;">11351.6</td>
+<td style="text-align: right;">9.40114</td>
+<td style="text-align: right;">8.21465</td>
+<td style="text-align: right;">1027.88</td>
+<td style="text-align: right;">3.7578</td>
+<td style="text-align: right;">22788.4</td>
+<td style="text-align: right;">9.99303e+08</td>
+<td style="text-align: right;">553550</td>
+<td style="text-align: right;">494499</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+<section id="firm-size-outliers" class="level3">
+<h3 class="anchored" data-anchor-id="firm-size-outliers">Firm Size outliers</h3>
+<p>In this section we focus on finding firms that are outliers in size. For finding these firms, we hone in on four metrics which together capture the size of a firm. These are: Gross written premium, net written premium, total assets, and total liabilities. We focus on the latest data, 2020. Furthermore, for all of these variable we consider their log distributions rather than the nominal values, as earnings/revenues data, like incomes, are likely nonlinear.</p>
+<div class="cell" data-execution_count="6">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> outliers_and_plot(df, metric, standard_deviations):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    dfsize <span class="op">=</span> df[df[metric] <span class="op">&gt;</span> <span class="dv">0</span>]</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    dfsize[<span class="st">'log_value'</span>] <span class="op">=</span> np.log(dfsize[metric])</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#dfsize['log_value'].hist(bins = 50)</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#fig = dfsize['log_value'].plot.density(figsize = (8,5))</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    fig <span class="op">=</span> dfsize[[<span class="st">'log_value'</span>]].boxplot()</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f'Log distribution of </span><span class="sc">{</span>metric<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">##do this for the four metrics first</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">##then identify outliers as per below method</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    mean <span class="op">=</span> dfsize[<span class="st">'log_value'</span>].mean()</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    sd <span class="op">=</span> dfsize[<span class="st">'log_value'</span>].std()</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">#gives top 5% of firms according to log normal distribution</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    firms <span class="op">=</span> dfsize[dfsize[<span class="st">'log_value'</span>] <span class="op">&gt;</span> mean <span class="op">+</span> standard_deviations<span class="op">*</span>sd][[<span class="st">'Firm'</span>, metric]]</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    firms.rename(columns <span class="op">=</span> {<span class="st">'Firm'</span> : <span class="ss">f'</span><span class="sc">{</span>metric<span class="sc">}</span><span class="ss"> outliers'</span>}, inplace <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fig, firms</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>In the below tabs, I show the boxplot distributions of the logs of these variables. And below these are the firms identified as outliers for that variable, defined as being 1.64 times the standard deviation above the mean. Assuming a normal distribution, this is identifying roughly the top 5% of firms.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">GWP</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Total assets (£m)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Total liabilities (£m)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">NWP (£m)</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell" data-execution_count="7">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fig, gwpoutliers <span class="op">=</span> outliers_and_plot(dfwide[(dfwide[<span class="st">'year'</span>] <span class="op">==</span> <span class="dv">2020</span>)], <span class="st">'GWP (£m)'</span>, <span class="fl">1.64</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="report_files/figure-html/cell-8-output-1.png" width="590" height="431"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>gwpoutliers<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> outliers found:'</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>display(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    Markdown(</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        gwpoutliers.to_markdown()</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>4 outliers found:</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th style="text-align: left;">GWP (£m) outliers</th>
+<th style="text-align: right;">GWP (£m)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">614</td>
+<td style="text-align: left;">Firm 210</td>
+<td style="text-align: right;">69697.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1174</td>
+<td style="text-align: left;">Firm 311</td>
+<td style="text-align: right;">24251.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1304</td>
+<td style="text-align: left;">Firm 34</td>
+<td style="text-align: right;">19275</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1939</td>
+<td style="text-align: left;">Firm 7</td>
+<td style="text-align: right;">16183.6</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell" data-execution_count="9">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fig, assetsoutliers <span class="op">=</span> outliers_and_plot(dfwide[(dfwide[<span class="st">'year'</span>] <span class="op">==</span> <span class="dv">2020</span>)], <span class="st">'Total assets (£m)'</span>, <span class="fl">1.64</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="report_files/figure-html/cell-10-output-1.png" width="569" height="431"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="10">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>assetsoutliers<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> outliers found:'</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>display(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    Markdown(</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        assetsoutliers.to_markdown()</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>16 outliers found:</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th style="text-align: left;">Total assets (£m) outliers</th>
+<th style="text-align: right;">Total assets (£m)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Firm 10</td>
+<td style="text-align: right;">195836</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">39</td>
+<td style="text-align: left;">Firm 105</td>
+<td style="text-align: right;">105213</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">544</td>
+<td style="text-align: left;">Firm 199</td>
+<td style="text-align: right;">155762</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">599</td>
+<td style="text-align: left;">Firm 208</td>
+<td style="text-align: right;">54768.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">614</td>
+<td style="text-align: left;">Firm 210</td>
+<td style="text-align: right;">160519</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">814</td>
+<td style="text-align: left;">Firm 247</td>
+<td style="text-align: right;">100085</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">884</td>
+<td style="text-align: left;">Firm 26</td>
+<td style="text-align: right;">83195.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">974</td>
+<td style="text-align: left;">Firm 276</td>
+<td style="text-align: right;">56366.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1094</td>
+<td style="text-align: left;">Firm 298</td>
+<td style="text-align: right;">68871.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1109</td>
+<td style="text-align: left;">Firm 30</td>
+<td style="text-align: right;">44306.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1174</td>
+<td style="text-align: left;">Firm 311</td>
+<td style="text-align: right;">61836.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1304</td>
+<td style="text-align: left;">Firm 34</td>
+<td style="text-align: right;">160124</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1839</td>
+<td style="text-align: left;">Firm 51</td>
+<td style="text-align: right;">32271.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1884</td>
+<td style="text-align: left;">Firm 6</td>
+<td style="text-align: right;">107548</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1939</td>
+<td style="text-align: left;">Firm 7</td>
+<td style="text-align: right;">58820.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1959</td>
+<td style="text-align: left;">Firm 73</td>
+<td style="text-align: right;">107523</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div class="cell" data-execution_count="11">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fig, liabilitiesoutliers <span class="op">=</span> outliers_and_plot(dfwide[(dfwide[<span class="st">'year'</span>] <span class="op">==</span> <span class="dv">2020</span>)], <span class="st">'Total liabilities (£m)'</span>, <span class="fl">1.64</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="report_files/figure-html/cell-12-output-1.png" width="582" height="431"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="12">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>liabilitiesoutliers<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> outliers found:'</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>display(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    Markdown(</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        liabilitiesoutliers.to_markdown()</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>11 outliers found:</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th style="text-align: left;">Total liabilities (£m) outliers</th>
+<th style="text-align: right;">Total liabilities (£m)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Firm 10</td>
+<td style="text-align: right;">254270</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">39</td>
+<td style="text-align: left;">Firm 105</td>
+<td style="text-align: right;">175128</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">599</td>
+<td style="text-align: left;">Firm 208</td>
+<td style="text-align: right;">60409.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">814</td>
+<td style="text-align: left;">Firm 247</td>
+<td style="text-align: right;">79654.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">974</td>
+<td style="text-align: left;">Firm 276</td>
+<td style="text-align: right;">49396.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1094</td>
+<td style="text-align: left;">Firm 298</td>
+<td style="text-align: right;">118465</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1109</td>
+<td style="text-align: left;">Firm 30</td>
+<td style="text-align: right;">99549.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1174</td>
+<td style="text-align: left;">Firm 311</td>
+<td style="text-align: right;">494499</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1304</td>
+<td style="text-align: left;">Firm 34</td>
+<td style="text-align: right;">182264</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1939</td>
+<td style="text-align: left;">Firm 7</td>
+<td style="text-align: right;">178293</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1959</td>
+<td style="text-align: left;">Firm 73</td>
+<td style="text-align: right;">55884</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<div class="cell" data-execution_count="13">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fig, nwpoutliers <span class="op">=</span> outliers_and_plot(dfwide[(dfwide[<span class="st">'year'</span>] <span class="op">==</span> <span class="dv">2020</span>)], <span class="st">'NWP (£m) '</span>, <span class="fl">1.64</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="report_files/figure-html/cell-14-output-1.png" width="582" height="431"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="14">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>nwpoutliers<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> outliers found:'</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>display(</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    Markdown(</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        nwpoutliers.to_markdown()</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>5 outliers found:</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th style="text-align: left;">NWP (£m) outliers</th>
+<th style="text-align: right;">NWP (£m)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">544</td>
+<td style="text-align: left;">Firm 199</td>
+<td style="text-align: right;">13133.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">614</td>
+<td style="text-align: left;">Firm 210</td>
+<td style="text-align: right;">60700</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">829</td>
+<td style="text-align: left;">Firm 25</td>
+<td style="text-align: right;">9765.61</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">884</td>
+<td style="text-align: left;">Firm 26</td>
+<td style="text-align: right;">16395.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1174</td>
+<td style="text-align: left;">Firm 311</td>
+<td style="text-align: right;">14566.3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>One firm, 311 , appears as an outlier across all four metrics. Supervisory resources should likely be dedicated to this firm. It is also worth noting that firm 34 appears in three out of four categories. However, considering the poor quality of the data, this may also be an instance of misreporting.</p>
+<div class="cell" data-execution_count="15">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>alloutliers <span class="op">=</span> pd.concat([nwpoutliers, liabilitiesoutliers, assetsoutliers, gwpoutliers], axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>display(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    Markdown(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        alloutliers.dropna()</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>.to_markdown()</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 11%">
+<col style="width: 6%">
+<col style="width: 18%">
+<col style="width: 13%">
+<col style="width: 16%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th style="text-align: left;">NWP (£m) outliers</th>
+<th style="text-align: right;">NWP (£m)</th>
+<th style="text-align: left;">Total liabilities (£m) outliers</th>
+<th style="text-align: right;">Total liabilities (£m)</th>
+<th style="text-align: left;">Total assets (£m) outliers</th>
+<th style="text-align: right;">Total assets (£m)</th>
+<th style="text-align: left;">GWP (£m) outliers</th>
+<th style="text-align: right;">GWP (£m)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1174</td>
+<td style="text-align: left;">Firm 311</td>
+<td style="text-align: right;">14566.3</td>
+<td style="text-align: left;">Firm 311</td>
+<td style="text-align: right;">494499</td>
+<td style="text-align: left;">Firm 311</td>
+<td style="text-align: right;">61836.6</td>
+<td style="text-align: left;">Firm 311</td>
+<td style="text-align: right;">24251.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>It is also of interest that not all of the largest firms by GWP are the largest by NWP. This suggests some of these firms will have very significant reinsurance activity. This may warrant further investigation from a business model perspective. It would also be interesting here to investigate whether the largest firms are also the ones incurring the most claims in nominal terms. If the firms incurring the most claims are not also the largest, perhaps those firms are at risk of failing and require supervisory attention.</p>
+</section>
+<section id="changing-business-profile" class="level3">
+<h3 class="anchored" data-anchor-id="changing-business-profile">Changing business profile</h3>
+<p>Like in section one, to identify outliers in changing business profile I focus on four variables. I think these have the most potential for harm. They are:</p>
+<ul>
+<li>Change in SRC coverage ratio: which in the case of rapid deterioration warrants the PRA’s attention.</li>
+<li>% change in equity: if there are large decreases in equity this can indicate problems in the firm’s balance sheet and potential future insolvency (in severe cases).</li>
+<li>Change in net combined ratio: A large increase in net combined ratio means decreasing profitability which can be a prudential risk.</li>
+<li>Change in pure gross claims ratio: similar to changes in net combined ratio, if there is a sharp increase in claims as a ratio of earned premiums that can be a significant source of cost pressure on the insurance firm.</li>
+</ul>
+<p>Furthermore, I decide to focus only on the above variables for the 2020 period, which is the most recent in the data. Outliers in changing business profiles in 2020 should be more important than outliers from previous years for supervisors.</p>
+<p>Data prep and outlier function:</p>
+<div class="cell" data-execution_count="16">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>calc_cols <span class="op">=</span> [<span class="st">'EoF for SCR (£m)'</span>,</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'Excess of assets over liabilities (£m) [= equity]'</span>,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'GWP (£m)'</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'Gross BEL (inc'</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'Gross claims incurred (£m)'</span>,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'Gross combined ratio'</span>,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'Gross expense ratio'</span>,</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'NWP (£m) '</span>,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'Net BEL (inc'</span>,</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'Net combined ratio'</span>,</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'Net expense ratio'</span>,</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'Pure gross claims ratio'</span>,</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'Pure net claims ratio'</span>,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'SCR (£m)'</span>,</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'SCR coverage ratio'</span>,</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'Total assets (£m)'</span>,</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'Total liabilities (£m)'</span>]</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>dfchange <span class="op">=</span> dfwide.copy()</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>firmcol, yearcol <span class="op">=</span> dfchange[<span class="st">'Firm'</span>], dfchange[<span class="st">'year'</span>]</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="co">#diff dataframe</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>dfdiff <span class="op">=</span> dfchange.drop(<span class="st">'year'</span>, axis <span class="op">=</span> <span class="dv">1</span>).groupby([<span class="st">'Firm'</span>], as_index <span class="op">=</span> <span class="va">False</span>).diff()</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>dfdiff[<span class="st">'Firm'</span>] <span class="op">=</span> firmcol</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>dfdiff[<span class="st">'year'</span>] <span class="op">=</span> yearcol</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>dfdiff <span class="op">=</span> dfdiff[[<span class="st">'Firm'</span>, <span class="st">'year'</span>] <span class="op">+</span> calc_cols]</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>dfdiff <span class="op">=</span> dfdiff.dropna()</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a><span class="co">#percentage diff dataframe</span></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>dfpercdiff <span class="op">=</span> dfchange.drop(<span class="st">'year'</span>, axis <span class="op">=</span> <span class="dv">1</span>).groupby([<span class="st">'Firm'</span>], as_index <span class="op">=</span> <span class="va">False</span>).pct_change()</span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>dfpercdiff[<span class="st">'Firm'</span>] <span class="op">=</span> firmcol</span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>dfpercdiff[<span class="st">'year'</span>] <span class="op">=</span> yearcol</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>dfpercdiff <span class="op">=</span> dfpercdiff[[<span class="st">'Firm'</span>, <span class="st">'year'</span>] <span class="op">+</span> calc_cols]</span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>dfpercdiff <span class="op">=</span> dfpercdiff.dropna()</span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>dfpercdiff.replace([np.inf, <span class="op">-</span>np.inf], np.nan, inplace<span class="op">=</span><span class="va">True</span>) <span class="co"># remove infinite values which cause problems</span></span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a><span class="co">#lets hone in on changes over over that past year, this is important to supervisors</span></span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>dfchange2020 <span class="op">=</span> dfdiff[(dfdiff[<span class="st">'year'</span>] <span class="op">==</span> <span class="dv">2020</span>)]</span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>dfchangepercent2020 <span class="op">=</span> dfpercdiff[(dfpercdiff[<span class="st">'year'</span>] <span class="op">==</span> <span class="dv">2020</span>)]</span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sd_outliers(df, var, standard_deviations, greater_than_or_less_than):</span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a><span class="co">    Find outlier firms, defined as, depending on the value of 'greater_than_or_less_than'</span></span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a><span class="co">    as firms with a var value greater than or less than three times the standard deviation</span></span>
+<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a><span class="co">    above or below the mean.</span></span>
+<span id="cb21-51"><a href="#cb21-51" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-53"><a href="#cb21-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> greater_than_or_less_than <span class="op">==</span> <span class="st">'&gt;'</span>:    </span>
+<span id="cb21-54"><a href="#cb21-54" aria-hidden="true" tabindex="-1"></a>        a <span class="op">=</span> df[(df[var] <span class="op">&gt;</span> (df[var].mean() <span class="op">+</span> standard_deviations <span class="op">*</span> df[var].std()))][[<span class="st">'Firm'</span>, var]]</span>
+<span id="cb21-55"><a href="#cb21-55" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a>        a[<span class="st">'threshold percentile'</span>] <span class="op">=</span> stats.percentileofscore(df[var],</span>
+<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a>                                                        (df[var].mean() <span class="op">+</span> standard_deviations <span class="op">*</span> df[var].std()))</span>
+<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a>        a <span class="op">=</span> df[(df[var] <span class="op">&lt;</span> (df[var].mean() <span class="op">-</span> standard_deviations <span class="op">*</span> df[var].std()))][[<span class="st">'Firm'</span>, var]]</span>
+<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a>        a[<span class="st">'threshold percentile'</span>] <span class="op">=</span> stats.percentileofscore(df[var],</span>
+<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a>                                                        (df[var].mean() <span class="op">-</span> standard_deviations <span class="op">*</span> df[var].std()))</span>
+<span id="cb21-64"><a href="#cb21-64" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-65"><a href="#cb21-65" aria-hidden="true" tabindex="-1"></a>    a[<span class="st">'threshold'</span>] <span class="op">=</span> (df[var].mean() <span class="op">+</span> standard_deviations <span class="op">*</span> df[var].std())</span>
+<span id="cb21-66"><a href="#cb21-66" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-67"><a href="#cb21-67" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> a.rename(columns <span class="op">=</span> {<span class="st">'firm'</span> : var <span class="op">+</span> <span class="st">'_outliers'</span>})</span>
+<span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-69"><a href="#cb21-69" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>In the below tabs, I show the density plots for the variables of interest. As also shown by the summary table below, all four variables are centred around zero (50th percentile), which means on average firms did not change. However, the mean changes in the combined ratio and pure gross claims ratios are negative, while positive for SCR coverage ratio and equity. These should be considered positive moves in all four variables. This feels inconsistent with the wider macroeconomic environment in 2020 and likely high number and unexpected pandemic insurance claims. This warrants further investigation.</p>
+<p>Another point of interest is how we treat the percentage change in equity variable. The minimum value is -100%, (percentage table not shown here) which is a significant deterioration of the balance sheet if true. Given this bounded nature of the variable, I choose -100% to be the outlier threshold for the % change in equity variable. The other thresholds are:</p>
+<ul>
+<li>SRC coverage ratio: less than 1.64 x std below the mean</li>
+<li>Net combined ratio: more than 1.64 x std above the mean</li>
+<li>Pure gross claims ratio: more than 1.64 x std above the mean</li>
+</ul>
+<p>The thresholds are in the directions that are potentially harmful. It seems likely that supervisors would not necessarily be concerned if an insurance firm has a sharp increase in their SRC coverage ratio.</p>
+<div class="cell" data-execution_count="17">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>display(</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    Markdown(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>        dfchange2020[[<span class="st">'SCR coverage ratio'</span>, <span class="st">'Net combined ratio'</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Pure gross claims ratio'</span>, <span class="st">'Excess of assets over liabilities (£m) [= equity]'</span>]].describe().to_markdown()</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 20%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">SCR coverage ratio</th>
+<th style="text-align: right;">Net combined ratio</th>
+<th style="text-align: right;">Pure gross claims ratio</th>
+<th style="text-align: right;">Excess of assets over liabilities (£m) [= equity]</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">count</td>
+<td style="text-align: right;">293</td>
+<td style="text-align: right;">293</td>
+<td style="text-align: right;">293</td>
+<td style="text-align: right;">293</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mean</td>
+<td style="text-align: right;">15.79</td>
+<td style="text-align: right;">0.0463258</td>
+<td style="text-align: right;">20.5125</td>
+<td style="text-align: right;">-46.8112</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">std</td>
+<td style="text-align: right;">291.82</td>
+<td style="text-align: right;">0.907844</td>
+<td style="text-align: right;">300.678</td>
+<td style="text-align: right;">1531.82</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">min</td>
+<td style="text-align: right;">-125.187</td>
+<td style="text-align: right;">-3.42867</td>
+<td style="text-align: right;">-2.75507</td>
+<td style="text-align: right;">-11279.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">25%</td>
+<td style="text-align: right;">-1.25853</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-0.0623387</td>
+<td style="text-align: right;">-22.3769</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">50%</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">75%</td>
+<td style="text-align: right;">0.835918</td>
+<td style="text-align: right;">0.155572</td>
+<td style="text-align: right;">0.112608</td>
+<td style="text-align: right;">9.81019</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">max</td>
+<td style="text-align: right;">4990.91</td>
+<td style="text-align: right;">7.56652</td>
+<td style="text-align: right;">5061.22</td>
+<td style="text-align: right;">8370.77</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">SRC coverage ratio</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Net combined ratio</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href="">Pure gross claims ratio</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false" href="">Equity</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell" data-execution_count="18">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>dfchange2020[(dfchange2020[<span class="st">'SCR coverage ratio'</span>] <span class="op">&gt;</span> <span class="op">-</span><span class="dv">10</span>) <span class="op">&amp;</span> (dfchange2020[<span class="st">'SCR coverage ratio'</span>] <span class="op">&lt;</span> <span class="dv">10</span>)][[<span class="st">'SCR coverage ratio'</span>]].plot.density(figsize <span class="op">=</span> (<span class="dv">8</span>,<span class="dv">5</span>))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Change in SCR coverage ratio, 2020'</span>, size <span class="op">=</span> <span class="dv">20</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'SRC coverage ratio change'</span>, size <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'density'</span>, size <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>plt.xticks(size <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>plt.yticks(size <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>Text(0.5, 0.98, '')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="report_files/figure-html/cell-19-output-2.png" width="694" height="472"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="19">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>src_outliers <span class="op">=</span> sd_outliers(dfchange2020[(dfchange2020[<span class="st">'SCR coverage ratio'</span>] <span class="op">&lt;</span> <span class="dv">1000</span>) <span class="op">&amp;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>             (dfchange2020[<span class="st">'SCR coverage ratio'</span>] <span class="op">&gt;</span> <span class="op">-</span><span class="dv">40</span>)], <span class="st">'SCR coverage ratio'</span>, <span class="fl">1.64</span>, <span class="st">'&lt;'</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>display(</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    Markdown(</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        src_outliers.to_markdown()</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 13%">
+<col style="width: 29%">
+<col style="width: 32%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th style="text-align: left;">Firm</th>
+<th style="text-align: right;">SCR coverage ratio</th>
+<th style="text-align: right;">threshold percentile</th>
+<th style="text-align: right;">threshold</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">144</td>
+<td style="text-align: left;">Firm 125</td>
+<td style="text-align: right;">-12.9557</td>
+<td style="text-align: right;">3.11419</td>
+<td style="text-align: right;">7.71005</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">354</td>
+<td style="text-align: left;">Firm 163</td>
+<td style="text-align: right;">-23.5072</td>
+<td style="text-align: right;">3.11419</td>
+<td style="text-align: right;">7.71005</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">379</td>
+<td style="text-align: left;">Firm 168</td>
+<td style="text-align: right;">-12.1273</td>
+<td style="text-align: right;">3.11419</td>
+<td style="text-align: right;">7.71005</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">439</td>
+<td style="text-align: left;">Firm 18</td>
+<td style="text-align: right;">-26.1733</td>
+<td style="text-align: right;">3.11419</td>
+<td style="text-align: right;">7.71005</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">474</td>
+<td style="text-align: left;">Firm 186</td>
+<td style="text-align: right;">-32.1671</td>
+<td style="text-align: right;">3.11419</td>
+<td style="text-align: right;">7.71005</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">499</td>
+<td style="text-align: left;">Firm 190</td>
+<td style="text-align: right;">-11.3246</td>
+<td style="text-align: right;">3.11419</td>
+<td style="text-align: right;">7.71005</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1214</td>
+<td style="text-align: left;">Firm 319</td>
+<td style="text-align: right;">-32.7085</td>
+<td style="text-align: right;">3.11419</td>
+<td style="text-align: right;">7.71005</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1229</td>
+<td style="text-align: left;">Firm 321</td>
+<td style="text-align: right;">-21.2858</td>
+<td style="text-align: right;">3.11419</td>
+<td style="text-align: right;">7.71005</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1864</td>
+<td style="text-align: left;">Firm 56</td>
+<td style="text-align: right;">-20.435</td>
+<td style="text-align: right;">3.11419</td>
+<td style="text-align: right;">7.71005</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell" data-execution_count="20">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>dfchange2020[(dfchange2020[<span class="st">'Net combined ratio'</span>] <span class="op">&gt;=</span> <span class="op">-</span><span class="dv">1</span>) <span class="op">&amp;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>          (dfchange2020[<span class="st">'Net combined ratio'</span>] <span class="op">&lt;</span> <span class="dv">2</span>)][<span class="st">'Net combined ratio'</span>].plot.density(figsize <span class="op">=</span> (<span class="dv">8</span>,<span class="dv">5</span>))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Change in net combined ratio, 2020'</span>, size <span class="op">=</span> <span class="dv">20</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'change in net combined ratio'</span>, size <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'density'</span>, size <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>plt.xticks(size <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>plt.yticks(size <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>Text(0.5, 0.98, '')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="report_files/figure-html/cell-21-output-2.png" width="681" height="472"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="21">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>netcomb_outliers <span class="op">=</span> sd_outliers(dfchange2020[(dfchange2020[<span class="st">'Net combined ratio'</span>] <span class="op">&gt;</span> <span class="op">-</span><span class="dv">10000</span>) <span class="op">&amp;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    (dfchange2020[<span class="st">'Net combined ratio'</span>] <span class="op">&lt;</span> <span class="dv">50</span>)],<span class="st">'Net combined ratio'</span>, <span class="fl">1.64</span>, <span class="st">'&gt;'</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>display(</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    Markdown(</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>        netcomb_outliers.to_markdown()</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 13%">
+<col style="width: 29%">
+<col style="width: 32%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th style="text-align: left;">Firm</th>
+<th style="text-align: right;">Net combined ratio</th>
+<th style="text-align: right;">threshold percentile</th>
+<th style="text-align: right;">threshold</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">99</td>
+<td style="text-align: left;">Firm 116</td>
+<td style="text-align: right;">1.58919</td>
+<td style="text-align: right;">95.9044</td>
+<td style="text-align: right;">1.53519</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">249</td>
+<td style="text-align: left;">Firm 144</td>
+<td style="text-align: right;">2.45377</td>
+<td style="text-align: right;">95.9044</td>
+<td style="text-align: right;">1.53519</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">259</td>
+<td style="text-align: left;">Firm 146</td>
+<td style="text-align: right;">5.12573</td>
+<td style="text-align: right;">95.9044</td>
+<td style="text-align: right;">1.53519</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">489</td>
+<td style="text-align: left;">Firm 189</td>
+<td style="text-align: right;">1.59547</td>
+<td style="text-align: right;">95.9044</td>
+<td style="text-align: right;">1.53519</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">574</td>
+<td style="text-align: left;">Firm 203</td>
+<td style="text-align: right;">2.41665</td>
+<td style="text-align: right;">95.9044</td>
+<td style="text-align: right;">1.53519</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">704</td>
+<td style="text-align: left;">Firm 227</td>
+<td style="text-align: right;">2.39621</td>
+<td style="text-align: right;">95.9044</td>
+<td style="text-align: right;">1.53519</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1059</td>
+<td style="text-align: left;">Firm 291</td>
+<td style="text-align: right;">1.86557</td>
+<td style="text-align: right;">95.9044</td>
+<td style="text-align: right;">1.53519</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1139</td>
+<td style="text-align: left;">Firm 305</td>
+<td style="text-align: right;">1.96533</td>
+<td style="text-align: right;">95.9044</td>
+<td style="text-align: right;">1.53519</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1509</td>
+<td style="text-align: left;">Firm 39</td>
+<td style="text-align: right;">7.56652</td>
+<td style="text-align: right;">95.9044</td>
+<td style="text-align: right;">1.53519</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1564</td>
+<td style="text-align: left;">Firm 40</td>
+<td style="text-align: right;">1.89416</td>
+<td style="text-align: right;">95.9044</td>
+<td style="text-align: right;">1.53519</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1844</td>
+<td style="text-align: left;">Firm 52</td>
+<td style="text-align: right;">1.98173</td>
+<td style="text-align: right;">95.9044</td>
+<td style="text-align: right;">1.53519</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2064</td>
+<td style="text-align: left;">Firm 92</td>
+<td style="text-align: right;">1.64216</td>
+<td style="text-align: right;">95.9044</td>
+<td style="text-align: right;">1.53519</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<div class="cell" data-execution_count="22">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>dfchange2020[(dfchange2020[<span class="st">'Pure gross claims ratio'</span>] <span class="op">&gt;=</span> <span class="op">-</span><span class="dv">1</span>) <span class="op">&amp;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>          (dfchange2020[<span class="st">'Pure gross claims ratio'</span>] <span class="op">&lt;</span> <span class="dv">2</span>)][<span class="st">'Pure gross claims ratio'</span>].plot.density(figsize <span class="op">=</span> (<span class="dv">8</span>,<span class="dv">5</span>))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Change in pure gross claims ratio, 2020'</span>, size <span class="op">=</span> <span class="dv">20</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Change in equity'</span>, size <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'density'</span>, size <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>plt.xticks(size <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>plt.yticks(size <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>Text(0.5, 0.98, '')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="report_files/figure-html/cell-23-output-2.png" width="694" height="472"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="23">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>pure_claims_outliers <span class="op">=</span> sd_outliers(dfchange2020[(dfchange2020[<span class="st">'Pure gross claims ratio'</span>] <span class="op">&gt;</span> <span class="op">-</span><span class="fl">0.8</span>) <span class="op">&amp;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>             (dfchange2020[<span class="st">'Pure gross claims ratio'</span>] <span class="op">&lt;</span> <span class="dv">4</span>)], <span class="st">'Pure gross claims ratio'</span>, <span class="fl">1.64</span>, <span class="st">'&gt;'</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>display(</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    Markdown(</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        pure_claims_outliers.to_markdown()</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 12%">
+<col style="width: 33%">
+<col style="width: 29%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th style="text-align: left;">Firm</th>
+<th style="text-align: right;">Pure gross claims ratio</th>
+<th style="text-align: right;">threshold percentile</th>
+<th style="text-align: right;">threshold</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">209</td>
+<td style="text-align: left;">Firm 137</td>
+<td style="text-align: right;">1.12932</td>
+<td style="text-align: right;">95.2206</td>
+<td style="text-align: right;">0.744007</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">259</td>
+<td style="text-align: left;">Firm 146</td>
+<td style="text-align: right;">1.1927</td>
+<td style="text-align: right;">95.2206</td>
+<td style="text-align: right;">0.744007</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">584</td>
+<td style="text-align: left;">Firm 205</td>
+<td style="text-align: right;">1.45815</td>
+<td style="text-align: right;">95.2206</td>
+<td style="text-align: right;">0.744007</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">634</td>
+<td style="text-align: left;">Firm 214</td>
+<td style="text-align: right;">3.7451</td>
+<td style="text-align: right;">95.2206</td>
+<td style="text-align: right;">0.744007</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">639</td>
+<td style="text-align: left;">Firm 215</td>
+<td style="text-align: right;">1.33464</td>
+<td style="text-align: right;">95.2206</td>
+<td style="text-align: right;">0.744007</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">849</td>
+<td style="text-align: left;">Firm 253</td>
+<td style="text-align: right;">0.825213</td>
+<td style="text-align: right;">95.2206</td>
+<td style="text-align: right;">0.744007</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">894</td>
+<td style="text-align: left;">Firm 261</td>
+<td style="text-align: right;">1.06068</td>
+<td style="text-align: right;">95.2206</td>
+<td style="text-align: right;">0.744007</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">954</td>
+<td style="text-align: left;">Firm 272</td>
+<td style="text-align: right;">0.802484</td>
+<td style="text-align: right;">95.2206</td>
+<td style="text-align: right;">0.744007</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">999</td>
+<td style="text-align: left;">Firm 280</td>
+<td style="text-align: right;">0.846725</td>
+<td style="text-align: right;">95.2206</td>
+<td style="text-align: right;">0.744007</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1034</td>
+<td style="text-align: left;">Firm 287</td>
+<td style="text-align: right;">1.16712</td>
+<td style="text-align: right;">95.2206</td>
+<td style="text-align: right;">0.744007</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1139</td>
+<td style="text-align: left;">Firm 305</td>
+<td style="text-align: right;">0.79001</td>
+<td style="text-align: right;">95.2206</td>
+<td style="text-align: right;">0.744007</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1214</td>
+<td style="text-align: left;">Firm 319</td>
+<td style="text-align: right;">2.1149</td>
+<td style="text-align: right;">95.2206</td>
+<td style="text-align: right;">0.744007</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1844</td>
+<td style="text-align: left;">Firm 52</td>
+<td style="text-align: right;">0.883558</td>
+<td style="text-align: right;">95.2206</td>
+<td style="text-align: right;">0.744007</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
+<div class="cell" data-execution_count="24">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#exclude problem observations</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>dfchangepercent2020[(<span class="op">~</span>dfchangepercent2020[<span class="st">'Excess of assets over liabilities (£m) [= equity]'</span>].isna()) <span class="op">&amp;</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>          (dfchangepercent2020[<span class="st">'Excess of assets over liabilities (£m) [= equity]'</span>] <span class="op">&gt;=</span> <span class="op">-</span><span class="dv">100</span>) <span class="op">&amp;</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>          (dfchangepercent2020[<span class="st">'Excess of assets over liabilities (£m) [= equity]'</span>] <span class="op">&lt;</span> <span class="dv">400</span>)][<span class="st">'Excess of assets over liabilities (£m) [= equity]'</span>].plot.density(figsize <span class="op">=</span> (<span class="dv">8</span>,<span class="dv">5</span>))</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'</span><span class="sc">% c</span><span class="st">hange in equity, 2020'</span>, size <span class="op">=</span> <span class="dv">20</span>)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'</span><span class="sc">% c</span><span class="st">hange in equity'</span>, size <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'density'</span>, size <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>plt.xticks(size <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>plt.yticks(size <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<pre><code>Text(0.5, 0.98, '')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="report_files/figure-html/cell-25-output-2.png" width="694" height="472"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="25">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#equity outliers</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>equityoutliers <span class="op">=</span> dfchangepercent2020[dfchangepercent2020[<span class="st">'Excess of assets over liabilities (£m) [= equity]'</span>] <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>][[<span class="st">'Firm'</span>]]</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>display(</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    Markdown(</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>        equityoutliers.to_markdown()</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th style="text-align: left;">Firm</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">354</td>
+<td style="text-align: left;">Firm 163</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">389</td>
+<td style="text-align: left;">Firm 17</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">399</td>
+<td style="text-align: left;">Firm 171</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">514</td>
+<td style="text-align: left;">Firm 193</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">789</td>
+<td style="text-align: left;">Firm 242</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">794</td>
+<td style="text-align: left;">Firm 243</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">954</td>
+<td style="text-align: left;">Firm 272</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1054</td>
+<td style="text-align: left;">Firm 290</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1144</td>
+<td style="text-align: left;">Firm 306</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1209</td>
+<td style="text-align: left;">Firm 318</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1739</td>
+<td style="text-align: left;">Firm 44</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Interestingly, although a large number of firms have been identified as outliers across the metrics, there is zero overlap of firms identified in each of these. Changes in these metrics may be capturing very different types of changes in a business, and so it seems as though no firms are experiencing great changes across more than one of these.</p>
+</section>
+<section id="outliers-from-the-norm" class="level3">
+<h3 class="anchored" data-anchor-id="outliers-from-the-norm">Outliers from the ‘norm’</h3>
+<p>In this section I identify outliers using a non-parametric, multivariate approach: isolation forests. This is an anomaly detection algorithm that works by randomly selecting features and partitioning the data points into trees. The algorithm measures the number of partitions required to isolate a data point, and anomalies are identified as those points that require fewer partitions, indicating their uniqueness and potential to be outliers.</p>
+<p>After fitting the isolation forest on the firm data, it provides a ‘score’ which allows me to rank the outliers. I specify the contamination parameter as being 0.05, which means we expect 5% of observations to be outliers. I chose this amount because I think it is reasonable that supervisors would want to target a small but not insignificant number of firms.</p>
+<p>I then use Shapley values to explain what is driving the ‘outlierness’ for the firms we find via this method. This is a technique used to quantify the contribution of individual features to a specific prediction.</p>
+<div class="cell" data-execution_count="26">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df_forest <span class="op">=</span> dfwide[dfwide[<span class="st">'year'</span>] <span class="op">==</span> <span class="dv">2020</span>]</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the Isolation Forest model</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>iso_forest <span class="op">=</span> IsolationForest(contamination <span class="op">=</span> <span class="fl">0.01</span>,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>                             random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>                             bootstrap <span class="op">=</span> <span class="va">True</span>)  <span class="co"># Adjust contamination as needed</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>iso_forest.fit(df_forest[calc_cols])</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>df_forest[<span class="st">'outlier'</span>] <span class="op">=</span> iso_forest.predict(df_forest[calc_cols])</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="co">#score data</span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>df_forest[<span class="st">'outlier_score'</span>] <span class="op">=</span> iso_forest.score_samples(df_forest[calc_cols])</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>df_forest.sort_values(<span class="st">'outlier_score'</span>)[[<span class="st">'Firm'</span>, <span class="st">'outlier_score'</span>]].head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+X does not have valid feature names, but IsolationForest was fitted with feature names
+is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Firm</th>
+<th data-quarto-table-cell-role="th">outlier_score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">39</td>
+<td>Firm 105</td>
+<td>-0.763590</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">614</td>
+<td>Firm 210</td>
+<td>-0.710597</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1174</td>
+<td>Firm 311</td>
+<td>-0.692270</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1304</td>
+<td>Firm 34</td>
+<td>-0.682476</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2099</td>
+<td>Firm 99</td>
+<td>-0.633736</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>A score closer to -1 indicates an observation being more of an outlier.</p>
+<p>Below, we see the contributions to the individual outlier scores for the top three firms. A negative value for a feature indicates that including it in the model is driving the outlier score down for that firm, towards the -1 threshold. This most likely means it is an outlier within that feature. And inversely, a positive score indicates that the firm is not an outlier for that feature.</p>
+<p>As can be seen for firm 105, most features contribute negatively towards the outlier score, most of all the Gross BEL and EoF for SCR features. There is a chance that the top one or two firms identified as outliers via this method could simply be instances of misreporting. Supervisors should be wary of this. Looking at the shapley values for the top three outlier firms, we notice that although there is some variance in which features are driving ‘outlierness’ across the firms, measures of size, including GWP and NWP feature in all three. Perhaps if we consider the log distributions of these variables here, as in section 1, these results will change.</p>
+<div class="cell" data-execution_count="27">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>explainer <span class="op">=</span> shap.Explainer(iso_forest, df_forest[calc_cols])</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co">#get outlier firms, could use the score instead</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>outlier_df <span class="op">=</span> df_forest[df_forest[<span class="st">'outlier'</span>] <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>firm_list <span class="op">=</span> <span class="bu">list</span>(outlier_df[<span class="st">'Firm'</span>])</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>outliershaps <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, firm <span class="kw">in</span> <span class="bu">enumerate</span>(firm_list):</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    shap_values <span class="op">=</span> explainer.shap_values(outlier_df[calc_cols].iloc[i])</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>    outliershaps[firm_list[i]] <span class="op">=</span> {<span class="st">'feature'</span> : calc_cols,</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">'shapley value'</span> : <span class="bu">list</span>(shap_values)}</span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> firm <span class="kw">in</span> outliershaps.keys():</span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>    pd.DataFrame.from_dict(outliershaps[firm]).sort_values(<span class="st">'shapley value'</span>).plot(kind <span class="op">=</span> <span class="st">'barh'</span>,</span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>                                            x <span class="op">=</span> <span class="st">'feature'</span>,</span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a>                                            y <span class="op">=</span> <span class="st">'shapley value'</span>,</span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a>                                            title <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>firm<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="report_files/figure-html/cell-28-output-1.png" width="883" height="431"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="report_files/figure-html/cell-28-output-2.png" width="883" height="431"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="report_files/figure-html/cell-28-output-3.png" width="883" height="431"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="task-2" class="level2">
+<h2 class="anchored" data-anchor-id="task-2">Task 2</h2>
+<section id="annex" class="level3">
+<h3 class="anchored" data-anchor-id="annex">Annex</h3>
+<p>In this section, I locate outliers in the data using visual inspection of a two-dimensional representation of the data, and by using density-based clustering (DBSCAN). I’m interested in seeing whether these methods will produce similar outliers to those found in the ‘outlier from norm’ section of the report, or if they can be used to glean any additional insights from the data. Although they work quite differently, all three have largely overlapping results. This is reassuring and gives robustness to my findings.</p>
+<section id="dimensionality-reduction" class="level4">
+<h4 class="anchored" data-anchor-id="dimensionality-reduction">Dimensionality reduction</h4>
+<p>Below you can see a two dimensional representation of the data using PCAs. The first thing of note here is that the firs two principal components account for less than half of the total variance in the data. This is surprisingly low and suggests the relationship between the various features is somewhat orthogonal. (Given the random multiplier explanation in the assignment this does in fact make sense). We would expect, in the real world, that many of these feature should be correlated strongly to one another. For example NWP should be proportional to GWP. Similarly, GWP is a denominator for some of the ratios, so should have a clear relationship with those as well. With real world data, the high orthogonality is suggestive of data quality issues.</p>
+<div class="cell" data-execution_count="28">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using PCA decompositions</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> dfwide[(dfwide[<span class="st">'year'</span>] <span class="op">==</span> <span class="dv">2020</span>)][calc_cols]</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> StandardScaler().fit_transform(train) <span class="co">#normalise data</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>pca.fit(train)</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Total explained variance of first two principal components is </span><span class="sc">{</span><span class="dv">100</span> <span class="op">*</span> <span class="bu">sum</span>(pca.explained_variance_ratio_)<span class="sc">}</span><span class="ss">%'</span>)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="co">##low explained variance ratio, indicates relative uncorrelatedeness of metrics, which is not what we expect</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total explained variance of first two principal components is 43.26032566337857%</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.</code></pre>
+</div>
+</div>
+<p>The two-dimensional representation below can be a useful way to visually locate outliers. I’ve labelled these in the chart. Although the PCAs will not have a direct interpretation for supervisors, I would suggest supervisors inspect the labelled firms in some more depth, and investigate what is happening with them.</p>
+<div class="cell" data-execution_count="29">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#plotting reduced dimensions</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>reduced_df <span class="op">=</span> pd.DataFrame(pca.fit_transform(train), columns<span class="op">=</span>[<span class="st">'PCA 1'</span>, <span class="st">'PCA 2'</span>])</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>firms <span class="op">=</span> dfwide[(dfwide[<span class="st">'year'</span>] <span class="op">==</span> <span class="dv">2020</span>)][<span class="st">'Firm'</span>]</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>reduced_df[<span class="st">'Firm'</span>] <span class="op">=</span> <span class="bu">list</span>(firms)</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> reduced_df.plot(kind <span class="op">=</span> <span class="st">'scatter'</span>, x <span class="op">=</span> [<span class="st">'PCA 1'</span>], y <span class="op">=</span> [<span class="st">'PCA 2'</span>], figsize <span class="op">=</span> (<span class="dv">8</span>,<span class="dv">6</span>))</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'PCA dimensionality reduction'</span>)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, row <span class="kw">in</span> reduced_df.iterrows():</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (row[<span class="st">'PCA 2'</span>] <span class="op">&gt;</span> <span class="dv">5</span> <span class="kw">or</span> row[<span class="st">'PCA 1'</span>] <span class="op">&gt;</span> <span class="dv">10</span>):</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>        ax.annotate(row[<span class="st">'Firm'</span>], (row[<span class="st">'PCA 1'</span>], row[<span class="st">'PCA 2'</span>]),xytext<span class="op">=</span>(<span class="dv">5</span>,<span class="op">-</span><span class="dv">5</span>),</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>                    textcoords<span class="op">=</span><span class="st">'offset points'</span>, family<span class="op">=</span><span class="st">'sans-serif'</span>, fontsize<span class="op">=</span><span class="dv">9</span>, color <span class="op">=</span> <span class="st">'black'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="report_files/figure-html/cell-30-output-1.png" width="691" height="523"></p>
+</div>
+</div>
+</section>
+<section id="dbscan" class="level4">
+<h4 class="anchored" data-anchor-id="dbscan">DBSCAN</h4>
+<p>Density-based clustering methods, such as DBSCAN, identify clusters of data points by evaluating the proximity of one point to another. These methods typically employ Euclidean distance, a measure of the straight-line distance between two points, to determine cluster boundaries. A key parameter in DBSCAN clustering is epsilon, which defines the maximum distance between two cluster boundary points for them to be considered part of the same cluster.</p>
+<p>While these clustering techniques are commonly employed to identify distinct groups of observations, our approach diverges by using them to detect outlier observations. We achieve this by determining the epsilon value that results in exactly 15 firms being unable to join any cluster. Additionally, I have set the min_samples parameter to 5, stipulating that a cluster must contain at least five observations to be recognized as such. This approach allows us to isolate outlier firms effectively, providing valuable insights into anomalies within the dataset.</p>
+<p>See below the function I made to find these outliers.</p>
+<div class="cell" data-execution_count="30">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_dbscan_outliers(df, calc_cols, number_of_outliers):</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">#function that fins top X outliers using density-base clustering algorithm.</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    outliers <span class="op">=</span> []</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    train <span class="op">=</span> df[(df[<span class="st">'year'</span>] <span class="op">==</span> <span class="dv">2020</span>)][calc_cols]</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    train <span class="op">=</span> StandardScaler().fit_transform(train) <span class="co">#normalise data</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> dist <span class="kw">in</span> np.arange(<span class="fl">0.1</span>, <span class="dv">20</span>, <span class="fl">0.1</span>):</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>        db <span class="op">=</span> DBSCAN(eps<span class="op">=</span>dist, min_samples<span class="op">=</span><span class="dv">5</span>).fit(train) <span class="co">#outlier if there are less than 5 'similar' firms</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>        dist_from_optimal <span class="op">=</span> <span class="bu">abs</span>(<span class="bu">len</span>(pd.Series(db.labels_)[pd.Series(db.labels_ <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>)]) <span class="op">-</span> number_of_outliers)</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>        outliers.append(dist_from_optimal) <span class="co">#i want 15 outliers</span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>    optimal_dist <span class="op">=</span> np.arange(<span class="fl">0.1</span>, <span class="dv">20</span>, <span class="fl">0.1</span>)[outliers.index(<span class="dv">0</span>)] <span class="co"># get dist that produces 15 outliers</span></span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>    db <span class="op">=</span> DBSCAN(eps<span class="op">=</span>optimal_dist, min_samples<span class="op">=</span><span class="dv">5</span>).fit(train)</span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>    table <span class="op">=</span> df[(df[<span class="st">'year'</span>] <span class="op">==</span> <span class="dv">2020</span>)][[<span class="st">'Firm'</span>]]</span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>    table[<span class="st">'db_group'</span>] <span class="op">=</span> db.labels_</span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Using DBSCAN in the way described above we find that the following 15 firms are outliers, in no particular order. Reassuringly, firms 4, 105, 166 and others are also outliers as identified in the previous visual inspection method, and the main isolation forest method used earlier in the report. As a final step, these top 5-10 firms should be passed on to supervisory teams, along with this report, for further investigation.</p>
+<div class="cell" data-execution_count="31">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get dbscan outliers</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>outliers <span class="op">=</span> get_dbscan_outliers(dfwide, calc_cols, <span class="dv">15</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(outliers[outliers[<span class="st">'db_group'</span>] <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>][[<span class="st">'Firm'</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Firm
+9      Firm 10
+39    Firm 105
+154   Firm 127
+544   Firm 199
+614   Firm 210
+884    Firm 26
+944   Firm 270
+1014  Firm 283
+1134  Firm 304
+1174  Firm 311
+1304   Firm 34
+1509   Firm 39
+1844   Firm 52
+2039   Firm 88
+2099   Firm 99</code></pre>
+</div>
+</div>
+<p>Given the potentially very poor quality of data used in this report, the methods described here could also be used to detect instances of misreporting, and help flag these to data collection teams at the Bank.</p>
+</section>
+</section>
+</section>
+<section id="task-3" class="level2">
+<h2 class="anchored" data-anchor-id="task-3">Task 3</h2>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>Here I aim to detail the process and key factors involved in leveraging Azure cloud services to automate the generation and distribution of the above report. Our initial step is to define the product requirements, followed by a tailored Azure cloud solution to streamline the process effectively.</p>
+</section>
+<section id="defining-the-product" class="level3">
+<h3 class="anchored" data-anchor-id="defining-the-product">Defining the Product</h3>
+<p>The primary objective is to provide supervisors with periodic, automated insights on outlier insurance firms. To achieve this, standardization of the report format is crucial. This entails systematically extracting insights and findings through code, ensuring consistency and accuracy. A standardized set of charts and metrics could be ideal for this purpose. However, to add flexibility, transforming the product into a web-based application is recommended. This app would allow supervisors to interactively explore data and pinpoint outliers, offering a more hands-on approach to data analysis. The data, sourced quarterly from insurance firms for regulatory purposes, dictates a low data refresh frequency.</p>
+<p>Therefore, the envisaged end product is a web-based application that identifies outlier insurance firms and updates every quarter, tailored to these specific requirements.</p>
+</section>
+<section id="key-considerations" class="level3">
+<h3 class="anchored" data-anchor-id="key-considerations">Key Considerations</h3>
+<p>In developing this Azure-based solution, several critical aspects must be considered:</p>
+<p><strong>Cost Management</strong>: Cloud services, while efficient, can escalate in cost rapidly. It’s essential to operate within a pre-approved budget set by senior stakeholders. Opting for high-end, costly services may not be justified unless they offer significant value addition. Cost-effectiveness without compromising on essential features is the goal here.</p>
+<p><strong>Scalability</strong>: Given the project’s nature, scalability is not a primary concern. The requirements, data volume, and refresh rate (quarterly) are expected to remain consistent over time. Therefore, the focus should be on selecting a solution that meets current needs without over-emphasizing scalability.</p>
+<p><strong>Security, Compliance, and Data Governance</strong>: Ensuring the solution adheres to the bank’s data governance rules and compliance standards, particularly when handling sensitive supervisory data, is paramount. Any proposed solution must be rigorously evaluated for its security measures and compliance with established protocols.</p>
+<p>By addressing these considerations and focusing on a streamlined, cost-effective, and secure approach, the proposed Azure cloud service solution aims to enhance the efficiency and accessibility of report generation for supervisory purposes.</p>
+</section>
+<section id="azure-pipeline" class="level3">
+<h3 class="anchored" data-anchor-id="azure-pipeline">Azure pipeline</h3>
+<p>Given the above considerations, I should go for simple (and easy to use) solutions for the product data pipeline. It will look as follows:</p>
+<ol type="1">
+<li><p><strong>ADF</strong>: Azure Data Factory is used to schedule data retrieval jobs on a weekly basis. Although the data is submitted quarterly, it may be revised more often than that, to account for this we refresh the data quarterly. I am also assuming that the data is available, possibly on a SQL server or Azure data storage service, which is accessible via azure data factory. This step includes some very basic data validation and transformation, with email alerts to devs in case of any issues.</p></li>
+<li><p><strong>Azure SQL Database</strong>: As the data is highly structured, I will use Azure SQL database for storage. This is a simple, easy-to-use solution which is highly suited to this type of product. The cost also scales with usage, which makes it a possibly cost-effective solution.</p></li>
+<li><p><strong>Databricks</strong>: Azure databricks is used to process data and fit the outlier detection models. These are computationally very inexpensive, due to small size of data and models, so this could potentially be moved to step four (posit connect) to save costs.</p></li>
+<li><p><strong>Posit Connect</strong>: The app is hosted on Posit Connect, which will connect to the Azure SQL Database. Alternatively, to stay within the Azure/Microsoft suite of products, the front-end could be made using Power BI.</p></li>
+</ol>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
